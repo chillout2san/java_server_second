@@ -20,7 +20,7 @@ public class Todo {
     this.id = id;
     this.name = name;
     this.content = content;
-    this.status = DONE;
+    this.status = status;
   }
 
   /**
@@ -55,5 +55,9 @@ public class Todo {
 
   public String getContent() {
     return this.content;
+  }
+
+  public Status getStatus() {
+    return this.status;
   }
 }
