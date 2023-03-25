@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: java_server_second_mysql
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    platform: linux/x86_64
+    ports:
+      - 23306:3306
+    environment:
+      - LC_ALL="C.utf8"
+      - MYSQL_DATABASE=test_database
+      - MYSQL_USER=test_user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - type: volume
+        source: java_server_second_mysql_volume
+        target: /var/lib/mysql
+      - type: bind
+        source: ./docker/mysql/my.cnf
+        target: /etc/mysql/conf.d/my.cnf
+      - type: bind
+        source: ./docker/mysql/scheme/todos.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  java_server_second_mysql_volume:

@@ -12,6 +12,8 @@ repositories {
 dependencies {
     implementation 'com.linecorp.armeria:armeria:1.22.1'
     implementation 'dev.shamil:ulid4j:1.0'
+    implementation 'mysql:mysql-connector-java:8.0.32'
+    implementation 'org.mybatis:mybatis:3.5.11'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
