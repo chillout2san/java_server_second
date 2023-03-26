@@ -1,5 +1,6 @@
 package domain.todo;
 
+import infrastructure.RepositoryException;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +12,5 @@ public interface TodoRepository {
    *
    * @return 全ての Todo
    */
-  List<Todo> findAll();
+  List<Todo> findAll() throws RepositoryException;
 }

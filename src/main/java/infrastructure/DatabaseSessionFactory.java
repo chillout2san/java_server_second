@@ -3,8 +3,12 @@ package infrastructure;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseSessionFactory {
+
+  private static Logger logger = LoggerFactory.getLogger(DatabaseSessionFactory.class);
 
   public static SqlSessionFactory get() throws DatabaseSessionException {
     var resource = "/mybatis-config.xml";
@@ -13,6 +17,7 @@ public class DatabaseSessionFactory {
       var sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
       return sqlSessionFactory;
     } catch (Exception e) {
+      logger.error(e.getMessage());
       throw new DatabaseSessionException("Could create SqlSessionFactory:" + e.getMessage());
     }
   }
