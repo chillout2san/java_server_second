@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
  */
 public class TodoId {
 
+  private static final Logger logger = LoggerFactory.getLogger(TodoId.class);
+
   public final String value;
 
   private TodoId(String value) {
@@ -24,6 +26,7 @@ public class TodoId {
    */
   public static TodoId create(String value) throws InvalidDomainArgumentException {
     if (value == "") {
+      logger.error("value is required.");
       throw new InvalidDomainArgumentException("value is required.");
     }
     return new TodoId(value);

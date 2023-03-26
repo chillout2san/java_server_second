@@ -24,12 +24,18 @@ public class TodoRepositoryImpl implements TodoRepository {
    * @return 全ての Todo
    */
   public List<Todo> findAll() throws RepositoryException {
-    try (var session = this.databaseSessionFactory.openSession()) {
+    var session = this.databaseSessionFactory.openSession();
+    try {
+      session.getConnection().setAutoCommit(false);
       var mapper = session.getMapper(TodoRepository.class);
-      return mapper.findAll();
+      var todos = mapper.findAll();
+      session.commit();
+      return todos;
     } catch (Exception e) {
-      this.logger.error(e.getMessage());
+      session.rollback();
       throw new RepositoryException(e.getMessage());
+    } finally {
+      session.close();
     }
   }
 }

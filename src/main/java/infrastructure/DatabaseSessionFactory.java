@@ -23,9 +23,3 @@ public class DatabaseSessionFactory {
   }
 }
 
-class DatabaseSessionException extends Exception {
-
-  public DatabaseSessionException(String message) {
-    super(message);
-  }
-}

@@ -1,6 +1,5 @@
 package domain.todo;
 
-import static domain.todo.Status.DONE;
 import static domain.todo.Status.WORK_IN_PROGRESS;
 
 import domain.InvalidDomainArgumentException;

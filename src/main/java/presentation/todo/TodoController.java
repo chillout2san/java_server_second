@@ -7,12 +7,10 @@ import com.linecorp.armeria.common.HttpResponse;
 import com.linecorp.armeria.common.HttpStatus;
 import com.linecorp.armeria.common.MediaType;
 import com.linecorp.armeria.server.ServerBuilder;
-import com.linecorp.armeria.server.annotation.ProducesJson;
 import domain.todo.Todo;
 import infrastructure.todo.TodoRepositoryImpl;
 import java.util.List;
 import org.apache.ibatis.session.SqlSessionFactory;
-import presentation.NotFoundPresentationException;
 import usecase.todo.GetUseCase;
 
 public class TodoController {
@@ -22,14 +20,14 @@ public class TodoController {
       if (ctx.method() == HttpMethod.GET) {
         return TodoController.get(sqlSessionFactory);
       }
-      throw new NotFoundPresentationException("method not found");
+      return HttpResponse.of(HttpStatus.NOT_FOUND);
     }));
   }
-  
+
   private static HttpResponse get(SqlSessionFactory sqlSessionFactory) {
+    var todoRepository = new TodoRepositoryImpl(sqlSessionFactory);
+    var getUseCase = new GetUseCase(todoRepository);
     try {
-      var todoRepository = new TodoRepositoryImpl(sqlSessionFactory);
-      var getUseCase = new GetUseCase(todoRepository);
       var todos = getUseCase.execute();
       var response = new GetResponse(todos);
       var objectMapper = new ObjectMapper();
