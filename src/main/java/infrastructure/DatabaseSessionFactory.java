@@ -7,13 +7,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class DatabaseSessionFactory {
 
   public static SqlSessionFactory get() throws DatabaseSessionException {
-    var resource = "/hoge";
+    var resource = "/mybatis-config.xml";
     try {
-      var inputStream = Resources.getResourceAsStream(resource);
+      var inputStream = DatabaseSessionFactory.class.getResourceAsStream(resource);
       var sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
       return sqlSessionFactory;
     } catch (Exception e) {
-      throw new DatabaseSessionException("データベースに接続できませんでした:" + e.getMessage());
+      throw new DatabaseSessionException("Could create SqlSessionFactory:" + e.getMessage());
     }
   }
 }

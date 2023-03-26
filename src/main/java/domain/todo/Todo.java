@@ -11,9 +11,21 @@ import ulid4j.Ulid;
  */
 public class Todo {
 
+  /**
+   * Todo の id
+   */
   public final TodoId id;
+  /**
+   * Todo の名前
+   */
   private String name;
+  /**
+   * Todo の内容
+   */
   private String content;
+  /**
+   * Todo の状態
+   */
   private Status status;
 
   private Todo(TodoId id, String name, String content, Status status) {
