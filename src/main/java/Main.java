@@ -8,9 +8,7 @@ public class Main {
 
     try {
       var databaseSessionFactory = DatabaseSessionFactory.get();
-      var todoRepositoryImpl = new TodoRepositoryImpl(databaseSessionFactory);
-      System.out.println(todoRepositoryImpl.findAll());
-      Router.execute();
+      Router.execute(databaseSessionFactory);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }

@@ -18,7 +18,7 @@ public class DatabaseSessionFactory {
       return sqlSessionFactory;
     } catch (Exception e) {
       logger.error(e.getMessage());
-      throw new DatabaseSessionException("Could create SqlSessionFactory:" + e.getMessage());
+      throw new DatabaseSessionException("could create SqlSessionFactory:" + e.getMessage());
     }
   }
 }

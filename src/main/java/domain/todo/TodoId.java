@@ -24,7 +24,7 @@ public class TodoId {
    */
   public static TodoId create(String value) throws InvalidDomainArgumentException {
     if (value == "") {
-      throw new InvalidDomainArgumentException("valueは必須です");
+      throw new InvalidDomainArgumentException("value is required.");
     }
     return new TodoId(value);
   }
