@@ -1,15 +1,12 @@
 package domain.todo;
 
-import domain.InvalidDomainArgumentException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import domain.DomainException;
+import presentation.ErrorCode;
 
 /**
  * Todo の id
  */
 public class TodoId {
-
-  private static final Logger logger = LoggerFactory.getLogger(TodoId.class);
 
   public final String value;
 
@@ -22,12 +19,12 @@ public class TodoId {
    *
    * @param value id の値
    * @return TodoId
-   * @throws InvalidDomainArgumentException value が空文字の時
+   * @throws DomainException value が空文字の時
    */
-  public static TodoId create(String value) throws InvalidDomainArgumentException {
+  public static TodoId create(String value) throws DomainException {
     if (value == "") {
-      logger.error("value is required.");
-      throw new InvalidDomainArgumentException("value is required.");
+      throw new DomainException("value is required.",
+          ErrorCode.DOMAIN_MODEL_ARGUMENT_REQUIRED_ERROR);
     }
     return new TodoId(value);
   }

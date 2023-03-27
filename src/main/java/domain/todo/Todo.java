@@ -2,7 +2,7 @@ package domain.todo;
 
 import static domain.todo.Status.WORK_IN_PROGRESS;
 
-import domain.InvalidDomainArgumentException;
+import domain.DomainException;
 import ulid4j.Ulid;
 
 /**
@@ -40,9 +40,9 @@ public class Todo {
    * @param name    Todo のタイトル
    * @param content Todo の中身
    * @return Todo
-   * @throws InvalidDomainArgumentException
+   * @throws DomainException
    */
-  public static Todo create(String name, String content) throws InvalidDomainArgumentException {
+  public static Todo create(String name, String content) throws DomainException {
     var id = TodoId.create(new Ulid().create());
     return new Todo(id, name, content, WORK_IN_PROGRESS);
   }

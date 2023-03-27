@@ -4,9 +4,11 @@ import domain.todo.Todo;
 import domain.todo.TodoRepository;
 import infrastructure.RepositoryException;
 import java.util.List;
+import org.apache.ibatis.datasource.DataSourceException;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import presentation.ErrorCode;
 
 public class TodoRepositoryImpl implements TodoRepository {
 
@@ -33,7 +35,7 @@ public class TodoRepositoryImpl implements TodoRepository {
       return todos;
     } catch (Exception e) {
       session.rollback();
-      throw new RepositoryException(e.getMessage());
+      throw new RepositoryException(e.getMessage(), ErrorCode.UNKNOWN);
     } finally {
       session.close();
     }

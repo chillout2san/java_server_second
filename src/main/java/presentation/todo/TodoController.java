@@ -11,6 +11,8 @@ import domain.todo.Todo;
 import infrastructure.todo.TodoRepositoryImpl;
 import java.util.List;
 import org.apache.ibatis.session.SqlSessionFactory;
+import presentation.ErrorHandler;
+import presentation.JsonMapper;
 import usecase.todo.GetUseCase;
 
 public class TodoController {
@@ -29,12 +31,10 @@ public class TodoController {
     var getUseCase = new GetUseCase(todoRepository);
     try {
       var todos = getUseCase.execute();
-      var response = new GetResponse(todos);
-      var objectMapper = new ObjectMapper();
-      var json = objectMapper.writeValueAsString(response);
-      return HttpResponse.of(HttpStatus.OK, MediaType.JSON_UTF_8, json);
+      var response = JsonMapper.execute(new GetResponse(todos));
+      return HttpResponse.of(HttpStatus.OK, MediaType.JSON_UTF_8, response);
     } catch (Exception e) {
-      return HttpResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
+      return ErrorHandler.execute(e);
     }
   }
 }
@@ -42,19 +42,19 @@ public class TodoController {
 class GetResponse {
 
   @JsonProperty("result")
-  private Todos result;
+  private Value result;
 
   public GetResponse(List<Todo> value) {
-    var todos = new Todos(value);
+    var todos = new Value(value);
     this.result = todos;
   }
 
-  class Todos {
+  class Value {
 
     @JsonProperty("todos")
     private List<Todo> value;
 
-    private Todos(List<Todo> todos) {
+    private Value(List<Todo> todos) {
       this.value = todos;
     }
   }
